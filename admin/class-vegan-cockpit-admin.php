@@ -200,39 +200,26 @@ class Vegan_Cockpit_Admin {
 
 		?>
 
-		<h1>Categories Analytics</h1>
-		<p>
-			<?php echo print_r($categories); ?>
-		</p>
-		<p>
-			<?php echo print_r(array_column($categories, 'name', 'ID')); ?>
-		</p>
-
-		<p>
-			<?php
-			echo print_r($categories[0]); // Outputs: London
-			?>
-		</p>
-
-		<p>
-			<?php
-			echo $categories[0]->name; // Outputs: London
-			?>
-		</p>
-
-		<h1>Table</h1>
-		<table>
+		<h1>Table with Categories</h1>
+		<table id="table_with_categories">
       <thead>
-        <tr><th>title</th><th>price<th>number</th></tr>
+        <tr><th>name</th><th>term_id</th><th>category-post-count</th><th>visits</th></tr>
       </thead>
       <tbody>
 
 			<?php
 			  foreach ($categories as $row) {
+
 			    echo '<tr>';
-					echo "<td>{$row->name}</td>";
-					echo "<td>{$row->term_id}</td>";
-					echo "<td>{$row->term_taxonomy_id}</td>";
+					echo "<td data-filter=\"name\">{$row->name}</td>";
+					echo "<td data-filter=\"term_id\">{$row->term_id}</td>";
+					echo "<td data-filter=\"category_count\">{$row->category_count}</td>";
+					echo "<td data-filter=\"visits\">";
+					$posts_by_category = get_posts( array ('category' => $row->term_id, 'numberposts' => -1) );
+					foreach ($posts_by_category as $post){
+						echo get_permalink($post);
+					}
+					echo "</td>";
 			    echo '</tr>';
 			  }
 			?>

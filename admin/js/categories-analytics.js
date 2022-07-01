@@ -29,8 +29,30 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	 function get_categories(){
+	 	var categories = [];
+
+	 	$('#table_with_categories tbody tr').each( (tr_idx,tr) => {
+	 		var category_data = {};
+	     $(tr).children('td').each( (td_idx, td) => {
+	         console.log( '[' +tr_idx+ ',' +td_idx+ '] => ' + $(td).text());
+	 				console.log($(td).data("filter"));
+	 				category_data[$(td).data("filter")] = $(td).text();
+	     });
+	 		categories.push(category_data);
+	 		console.log(category_data);
+	 	});
+
+	 	console.log(categories);
+	 	return categories;
+	 }
+
 $( window ).load(function(){
 	console.log("categories-analytics load");
+
+	get_categories();
+
+
 });
 
 })( jQuery );
