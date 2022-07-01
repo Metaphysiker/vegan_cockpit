@@ -97,6 +97,8 @@ class Vegan_Cockpit_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/vegan-cockpit-admin.js', array( 'jquery' ), $this->version, false );
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/categories_analytics.js', array( 'jquery' ), $this->version, false );
+
 
 	}
 
@@ -176,8 +178,16 @@ class Vegan_Cockpit_Admin {
 
 	}
 
+	public function categories_analytics_enqueue_script(){
+		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories_analytics.js', false );
+	}
 
 	public function categories_analytics_html(){
+		//add_action( 'wp_enqueue_scripts', 'categories_analytics_enqueue_script' );
+		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories-analytics.js', false );
+
+
+
 		// check user capabilities
 		if ( ! current_user_can( 'manage_options' ) ) {
 				return;

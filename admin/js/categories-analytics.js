@@ -29,8 +29,8 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-$( window ).load(function(){
-	console.log("epic?");
-});
+//$( window ).load(function(){
+//	console.log("categories-analytics?");
+//});
 
 })( jQuery );
