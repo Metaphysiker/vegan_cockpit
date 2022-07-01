@@ -203,7 +203,15 @@ class Vegan_Cockpit_Admin {
 		<h1>Table with Categories</h1>
 		<table id="table_with_categories">
       <thead>
-        <tr><th>name</th><th>term_id</th><th>category-post-count</th><th>visits</th></tr>
+        <tr>
+					<th>name</th>
+					<th>term_id</th>
+					<th>category-post-count</th>
+					<th>urls</th>
+					<th>
+						total unique visits
+					</th>
+				</tr>
       </thead>
       <tbody>
 
@@ -214,12 +222,18 @@ class Vegan_Cockpit_Admin {
 					echo "<td data-filter=\"name\">{$row->name}</td>";
 					echo "<td data-filter=\"term_id\">{$row->term_id}</td>";
 					echo "<td data-filter=\"category_count\">{$row->category_count}</td>";
-					echo "<td data-filter=\"visits\">";
+					echo "<td data-filter=\"urls\">";
 					$posts_by_category = get_posts( array ('category' => $row->term_id, 'numberposts' => -1) );
+					$numItems = count($posts_by_category);
+					$i = 0;
 					foreach ($posts_by_category as $post){
 						echo str_replace( home_url(), "", get_permalink($post) );
+						if(++$i !== $numItems) {
+								echo ",<br />";
+							}
 					}
 					echo "</td>";
+					echo "<td data-filter=\"unique_visits\">0</td>";
 			    echo '</tr>';
 			  }
 			?>
