@@ -217,7 +217,7 @@ class Vegan_Cockpit_Admin {
 					echo "<td data-filter=\"visits\">";
 					$posts_by_category = get_posts( array ('category' => $row->term_id, 'numberposts' => -1) );
 					foreach ($posts_by_category as $post){
-						echo get_permalink($post);
+						echo str_replace( home_url(), "", get_permalink($post) );
 					}
 					echo "</td>";
 			    echo '</tr>';
