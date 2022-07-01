@@ -202,7 +202,45 @@ class Vegan_Cockpit_Admin {
 
 		<h1>Categories Analytics</h1>
 		<p>
-			<?php echo json_encode(array_column($categories, 'name')); ?>
+			<?php echo print_r($categories); ?>
+		</p>
+		<p>
+			<?php echo print_r(array_column($categories, 'name', 'ID')); ?>
+		</p>
+
+		<p>
+			<?php
+			echo print_r($categories[0]); // Outputs: London
+			?>
+		</p>
+
+		<p>
+			<?php
+			echo $categories[0]->name; // Outputs: London
+			?>
+		</p>
+
+		<h1>Table</h1>
+		<table>
+      <thead>
+        <tr><th>title</th><th>price<th>number</th></tr>
+      </thead>
+      <tbody>
+
+			<?php
+			  foreach ($categories as $row) {
+			    echo '<tr>';
+					echo "<td>{$row->name}</td>";
+					echo "<td>{$row->term_id}</td>";
+					echo "<td>{$row->term_taxonomy_id}</td>";
+			    echo '</tr>';
+			  }
+			?>
+      </tbody>
+    </table>
+
+		<p>
+
 		</p>
 
 		<?php
