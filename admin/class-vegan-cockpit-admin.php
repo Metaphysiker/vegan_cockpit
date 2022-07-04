@@ -173,6 +173,7 @@ class Vegan_Cockpit_Admin {
 				'manage_options',
 				'vegan-cockpit-categories_analytics',
 				array( $this, 'categories_analytics_html' ),
+				'1',
 				'dashicons-book-alt'
 		);
 
@@ -198,6 +199,10 @@ class Vegan_Cockpit_Admin {
 		    'order'   => 'ASC'
 		) );
 
+		?>
+
+		<?php
+			include( plugin_dir_path( __FILE__ ) . 'partials/abc.php');
 		?>
 
 		<h1>Table with Categories</h1>

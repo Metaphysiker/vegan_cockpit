@@ -18,3 +18,7 @@
 <p>
   Heeeey
 </p>
+
+<?php
+  echo print_r($categories);
+ ?>
