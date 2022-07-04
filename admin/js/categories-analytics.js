@@ -48,11 +48,7 @@
 	 }
 
 $( window ).load(function(){
-	console.log("categories-analytics load");
-
 	get_categories();
-
-
 });
 
 })( jQuery );

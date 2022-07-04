@@ -185,6 +185,8 @@ class Vegan_Cockpit_Admin {
 
 	public function categories_analytics_html(){
 		//add_action( 'wp_enqueue_scripts', 'categories_analytics_enqueue_script' );
+		wp_enqueue_script( 'google-analytics-api', plugin_dir_url( __FILE__ ) . 'js/google-analytics-api.js', false );
+
 		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories-analytics.js', false );
 
 
@@ -202,7 +204,7 @@ class Vegan_Cockpit_Admin {
 		?>
 
 		<?php
-			include( plugin_dir_path( __FILE__ ) . 'partials/abc.php');
+			include( plugin_dir_path( __FILE__ ) . 'partials/categories-analytics.php');
 		?>
 
 		<h1>Table with Categories</h1>
