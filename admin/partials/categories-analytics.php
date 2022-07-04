@@ -47,6 +47,32 @@ function waitForGlobalVariables(callback){
   });
 }
 
+function iterateOverUrls(category){
+  var dummyDateRange = {
+        startDate: "2022-01-01",
+        endDate: "2022-07-04"
+      };
+  var googleAnalyticsApi = new window.GoogleAnalyticsApi();
+  var categoriesAnalytics = new window.CategoriesAnalytics();
+
+  var urls = category.urls.split(",");
+  for (let index = 0, p = Promise.resolve(); index < urls.length; index++)
+  {
+    p = p.then(() => new Promise(function(resolve, reject) {
+
+      googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, urls[index])
+      .then((result) => {
+        console.log(category.name);
+        console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
+        categoriesAnalytics.updateCounterInTable("#td-id-total-unique-users-" + category.slug ,result.result.reports[0].data.rows[0].metrics[0].values[0]);
+        resolve();
+      })
+
+    }))
+  }
+}
+
+
 function startAnalyticsProcess(){
   console.log("startAnalyticsProcess");
   var dummyDateRange = {
@@ -56,23 +82,15 @@ function startAnalyticsProcess(){
   var googleAnalyticsApi = new window.GoogleAnalyticsApi();
   var categoriesAnalytics = new window.CategoriesAnalytics();
   var categories = categoriesAnalytics.get_categories();
-  console.log("categories: " + categories);
-  categories.forEach(function (category, index) {
 
-    category.urls.split(",").forEach(function(category_url){
-      console.log(category_url);
+  for (let first_index = 0, p1 = Promise.resolve(); first_index < categories.length; first_index++)
+  {
+    p1 = p1.then(() => new Promise(function(first_resolve, first_reject) {
+      iterateOverUrls(categories[first_index])
 
-      //googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange, "/mitglied-werden")
-      googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, category_url)
-      .then((result) => {
-        console.log(category.name);
-        console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
-        categoriesAnalytics.updateCounterInTable("#td-id-total-unique-users-" + category.slug ,result.result.reports[0].data.rows[0].metrics[0].values[0]);
-      })
-
-    });
-
-  });
+      first_resolve();
+    }))
+  }
 }
 
   // Replace with your view ID.
