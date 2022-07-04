@@ -10,6 +10,17 @@
 
 <h1>Hello Analytics Reporting API V4</h1>
 
+<div data-google-view-id=
+<?php
+echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
+?>
+>
+  <?php
+  echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
+  ?>
+</div>
+
+
 <!-- The Sign-in button. This will run `queryReports()` on success. -->
 <p class="g-signin2" data-onsuccess="queryReports"></p>
 
@@ -48,9 +59,10 @@ function startAnalyticsProcess(){
   console.log("categories: " + categories);
   categories.forEach(function (category, index) {
 
-    googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange)
+    //googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange, "/mitglied-werden")
+    googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, "/mitglied-werden")
     .then((result) => {
-      console.log(result);
+      console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
       console.log(category.name);
     }
 

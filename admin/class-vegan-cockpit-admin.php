@@ -123,6 +123,14 @@ class Vegan_Cockpit_Admin {
         'vegan_cockpit_settings_section'
     );
 
+		add_settings_field(
+				'google_view_id',
+				'Google View ID',
+				array( $this, 'google_view_id_html' ),
+				'vegan_cockpit',
+				'vegan_cockpit_settings_section'
+		);
+
 	}
 
 	public function vegan_cockpit_settings_section_callback() {
@@ -132,6 +140,11 @@ class Vegan_Cockpit_Admin {
 	public function api_key_html() {
 		$options = get_option( 'vegan_cockpit_setting' );
     echo "<input id='api_key' name='vegan_cockpit_setting[api_key]' type='text' value='" . esc_attr( $options['api_key'] ) . "' />";
+	}
+
+	public function google_view_id_html() {
+		$options = get_option( 'vegan_cockpit_setting' );
+		echo "<input id='google_view_id' name='vegan_cockpit_setting[google_view_id]' type='text' value='" . esc_attr( $options['google_view_id'] ) . "' />";
 	}
 
 	public function options_page(){

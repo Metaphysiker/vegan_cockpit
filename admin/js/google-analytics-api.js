@@ -35,7 +35,7 @@
 
 window.GoogleAnalyticsApi = GoogleAnalyticsApiObject;
 
-function getNumbersFromGoogle(view_id, dateRange){
+function getNumbersFromGoogle(view_id, dateRange, relative_url){
 
 	return new Promise(function(resolve, reject)
 	{
@@ -60,7 +60,7 @@ function getNumbersFromGoogle(view_id, dateRange){
 							 "operator": "REGEXP",
 							 "dimensionName": "ga:pagePath",
 							 "expressions": [
-								 "/mitglied-werden"
+								 relative_url
 								]
 							}
 							]
