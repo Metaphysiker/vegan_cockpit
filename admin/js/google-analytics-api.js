@@ -29,54 +29,56 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	 function GoogleAnalyticsApiObject() {
-			 this.getNumbersFromGoogle = getNumbersFromGoogle;
-		}
+ function GoogleAnalyticsApiObject() {
+		 this.getNumbersFromGoogle = getNumbersFromGoogle;
+	}
 
-	window.GoogleAnalyticsApi = GoogleAnalyticsApiObject;
+window.GoogleAnalyticsApi = GoogleAnalyticsApiObject;
 
 function getNumbersFromGoogle(view_id, dateRange){
-	console.log("getNumbersFromGoogle started");
-	gapi.client.request({
-		path: '/v4/reports:batchGet',
-		root: 'https://analyticsreporting.googleapis.com/',
-		method: 'POST',
-		body: {
-			reportRequests: [
-				{
-					viewId: view_id,
-					dateRanges: [dateRange],
-					metrics: [
-						{
-							expression: 'ga:users'
-						}
-					],
-					"dimensionFilterClauses": [
-					 {
-						"filters": [
-						{
-						 "operator": "REGEXP",
-						 "dimensionName": "ga:pagePath",
-						 "expressions": [
-							 "/mitglied-werden"
-							]
-						}
-						]
-					 }
-					]
-				}
-			]
-		}
-	}).then(function(response){
 
-		console.log(response);
-		console.log("wugga");
+	return new Promise(function(resolve, reject)
+	{
+		gapi.client.request({
+			path: '/v4/reports:batchGet',
+			root: 'https://analyticsreporting.googleapis.com/',
+			method: 'POST',
+			body: {
+				reportRequests: [
+					{
+						viewId: view_id,
+						dateRanges: [dateRange],
+						metrics: [
+							{
+								expression: 'ga:users'
+							}
+						],
+						"dimensionFilterClauses": [
+						 {
+							"filters": [
+							{
+							 "operator": "REGEXP",
+							 "dimensionName": "ga:pagePath",
+							 "expressions": [
+								 "/mitglied-werden"
+								]
+							}
+							]
+						 }
+						]
+					}
+				]
+			}
+		}).then(function(response){
+			//return response;
+			resolve(response);
+		})
 	})
 }
 
 
 $( window ).load(function(){
-	console.log("google-analytics-api");
+	console.log("google-analytics-api loaded");
 });
 
 })( jQuery );

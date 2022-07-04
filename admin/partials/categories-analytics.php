@@ -17,15 +17,6 @@
 <textarea cols="80" rows="20" id="query-output"></textarea>
 
 <script>
-(function( $ ) {
-	'use strict';
-
-$( window ).load(function(){
-
-
-});
-
-})( jQuery );
 
 function waitFor(variable, callback) {
   var interval = setInterval(function() {
@@ -36,26 +27,45 @@ function waitFor(variable, callback) {
   }, 200);
 }
 
+function waitForGlobalVariables(callback){
+  waitFor('GoogleAnalyticsApi', function() {
+    waitFor('CategoriesAnalytics', function() {
+      callback();
+      console.log("callback!");
+    });
+  });
+}
+
+function startAnalyticsProcess(){
+  console.log("startAnalyticsProcess");
+  var dummyDateRange = {
+        startDate: "2022-01-01",
+        endDate: "2022-03-30"
+      };
+  var googleAnalyticsApi = new window.GoogleAnalyticsApi();
+  var categoriesAnalytics = new window.CategoriesAnalytics();
+  var categories = categoriesAnalytics.get_categories();
+  console.log("categories: " + categories);
+  categories.forEach(function (category, index) {
+
+    googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange)
+    .then((result) => {
+      console.log(result);
+      console.log(category.name);
+    }
+
+    );
+
+  });
+}
+
   // Replace with your view ID.
   var VIEW_ID = '235111240';
 
   // Query the API and print the results to the page.
   function queryReports() {
 
-    waitFor('GoogleAnalyticsApi', function() {
-
-      var dummyDateRange = {
-            startDate: "2022-01-01",
-            endDate: "2022-03-30"
-          }
-      var googleAnalyticsApi = new window.GoogleAnalyticsApi();
-
-      googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange);
-    });
-
-
-
-
+    waitForGlobalVariables(startAnalyticsProcess);
 
     gapi.client.request({
       path: '/v4/reports:batchGet',
