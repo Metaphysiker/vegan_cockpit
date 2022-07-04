@@ -229,7 +229,7 @@ class Vegan_Cockpit_Admin {
 					<th>category-post-count</th>
 					<th>urls</th>
 					<th>
-						total unique visits
+						total unique users
 					</th>
 				</tr>
       </thead>
@@ -237,9 +237,9 @@ class Vegan_Cockpit_Admin {
 
 			<?php
 			  foreach ($categories as $row) {
-
-			    echo '<tr>';
+			    echo "<tr id=\"tr-id-{$row->slug}\">";
 					echo "<td data-filter=\"name\">{$row->name}</td>";
+					echo "<td data-filter=\"slug\">{$row->slug}</td>";
 					echo "<td data-filter=\"term_id\">{$row->term_id}</td>";
 					echo "<td data-filter=\"category_count\">{$row->category_count}</td>";
 					echo "<td data-filter=\"urls\">";
@@ -253,7 +253,7 @@ class Vegan_Cockpit_Admin {
 							}
 					}
 					echo "</td>";
-					echo "<td data-filter=\"unique_visits\">0</td>";
+					echo "<td id=\"td-id-total-unique-users-{$row->slug}\" data-filter=\"total_unique_users\">0</td>";
 			    echo '</tr>';
 			  }
 			?>

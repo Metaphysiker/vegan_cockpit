@@ -30,7 +30,8 @@
 	 */
 
 	 function CategoriesAnalyticsObject() {
-			this.get_categories = get_categories;
+			this.get_categories = get_categories,
+			this.updateCounterInTable = updateCounterInTable
 	 }
 
 		window.CategoriesAnalytics = CategoriesAnalyticsObject;
@@ -45,8 +46,18 @@
 	     });
 	 		categories.push(category_data);
 	 	});
-
+		console.log(categories);
 	 	return categories;
+	 }
+
+	 function updateCounterInTable(element_id, count){
+		 console.log(element_id);
+		 console.log(count);
+		 var current_count = parseInt($(element_id).text());
+		 console.log(current_count);
+		 console.log($(element_id).text());
+		 var updated_count = parseInt(current_count) + parseInt(count);
+		 $(element_id).empty().text(updated_count);
 	 }
 
 $( window ).load(function(){

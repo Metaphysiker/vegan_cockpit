@@ -51,7 +51,7 @@ function startAnalyticsProcess(){
   console.log("startAnalyticsProcess");
   var dummyDateRange = {
         startDate: "2022-01-01",
-        endDate: "2022-03-30"
+        endDate: "2022-07-04"
       };
   var googleAnalyticsApi = new window.GoogleAnalyticsApi();
   var categoriesAnalytics = new window.CategoriesAnalytics();
@@ -63,10 +63,11 @@ function startAnalyticsProcess(){
       console.log(category_url);
 
       //googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange, "/mitglied-werden")
-      googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, "/mitglied-werden")
+      googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, category_url)
       .then((result) => {
         console.log(category.name);
         console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
+        categoriesAnalytics.updateCounterInTable("#td-id-total-unique-users-" + category.slug ,result.result.reports[0].data.rows[0].metrics[0].values[0]);
       })
 
     });
