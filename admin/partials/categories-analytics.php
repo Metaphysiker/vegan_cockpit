@@ -59,14 +59,17 @@ function startAnalyticsProcess(){
   console.log("categories: " + categories);
   categories.forEach(function (category, index) {
 
-    //googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange, "/mitglied-werden")
-    googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, "/mitglied-werden")
-    .then((result) => {
-      console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
-      console.log(category.name);
-    }
+    category.urls.split(",").forEach(function(category_url){
+      console.log(category_url);
 
-    );
+      //googleAnalyticsApi.getNumbersFromGoogle("235111240", dummyDateRange, "/mitglied-werden")
+      googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, "/mitglied-werden")
+      .then((result) => {
+        console.log(category.name);
+        console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
+      })
+
+    });
 
   });
 }
