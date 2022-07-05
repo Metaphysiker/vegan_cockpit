@@ -24,8 +24,20 @@ echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
 <!-- The Sign-in button. This will run `queryReports()` on success. -->
 <p class="g-signin2" data-onsuccess="queryReports"></p>
 
-<!-- The API response will be printed here. -->
-<textarea cols="80" rows="20" id="query-output"></textarea>
+<table>
+  <thead>
+    <tr>
+      <th>
+        category_slug
+      </th>
+      <th>url</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody id="tbody-of-table2">
+
+  </tbody>
+</table>
 
 <script>
 
@@ -62,9 +74,10 @@ function iterateOverUrls(category){
 
       googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, urls[index])
       .then((result) => {
-        console.log(category.name);
-        console.log(result.result.reports[0].data.rows[0].metrics[0].values[0]);
-        categoriesAnalytics.updateCounterInTable("#td-id-total-unique-users-" + category.slug ,result.result.reports[0].data.rows[0].metrics[0].values[0]);
+        var total_unique_users_count = result.result.reports[0].data.rows[0].metrics[0].values[0];
+        categoriesAnalytics.updateCounterInTable("#td-id-total-unique-users-" + category.slug, total_unique_users_count);
+        categoriesAnalytics.updateCounterInTable2("#tbody-of-table2", category.slug, urls[index], total_unique_users_count)
+
         resolve();
       })
 
@@ -101,29 +114,6 @@ function startAnalyticsProcess(){
 
     waitForGlobalVariables(startAnalyticsProcess);
 
-    gapi.client.request({
-      path: '/v4/reports:batchGet',
-      root: 'https://analyticsreporting.googleapis.com/',
-      method: 'POST',
-      body: {
-        reportRequests: [
-          {
-            viewId: VIEW_ID,
-            dateRanges: [
-              {
-                startDate: '7daysAgo',
-                endDate: 'today'
-              }
-            ],
-            metrics: [
-              {
-                expression: 'ga:sessions'
-              }
-            ]
-          }
-        ]
-      }
-    }).then(displayResults, console.error.bind(console));
   }
 
   function displayResults(response) {

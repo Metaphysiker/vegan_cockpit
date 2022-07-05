@@ -225,6 +225,7 @@ class Vegan_Cockpit_Admin {
       <thead>
         <tr>
 					<th>name</th>
+					<th>slug</th>
 					<th>term_id</th>
 					<th>category-post-count</th>
 					<th>urls</th>

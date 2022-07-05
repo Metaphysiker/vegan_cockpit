@@ -31,7 +31,8 @@
 
 	 function CategoriesAnalyticsObject() {
 			this.get_categories = get_categories,
-			this.updateCounterInTable = updateCounterInTable
+			this.updateCounterInTable = updateCounterInTable,
+			this.updateCounterInTable2 = updateCounterInTable2
 	 }
 
 		window.CategoriesAnalytics = CategoriesAnalyticsObject;
@@ -58,6 +59,18 @@
 		 console.log($(element_id).text());
 		 var updated_count = parseInt(current_count) + parseInt(count);
 		 $(element_id).empty().text(updated_count);
+	 }
+
+	 function updateCounterInTable2(element_id, category_slug, url, count){
+
+		 var row = '<tr>'+
+		 			'<td>'+ category_slug +'</td>'+
+          '<td>'+ url +'</td>'+
+          '<td>'+ count +'</td>'+
+          '</tr>';
+
+		 $(element_id).append(row);
+
 	 }
 
 $( window ).load(function(){

@@ -57,7 +57,9 @@ function getNumbersFromGoogle(view_id, dateRange, relative_url){
 						 {
 							"filters": [
 							{
-							 "operator": "REGEXP",
+							 //"operator": "REGEXP",
+							 //https://developers.google.com/analytics/devguides/reporting/core/v4/rest/v4/reports/batchGet
+							 "operator": "BEGINS_WITH",
 							 "dimensionName": "ga:pagePath",
 							 "expressions": [
 								 relative_url
