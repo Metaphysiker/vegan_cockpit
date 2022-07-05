@@ -51,6 +51,12 @@ function getNumbersFromGoogle(view_id, dateRange, relative_url){
 						metrics: [
 							{
 								expression: 'ga:users'
+							},
+							{
+								expression: 'ga:sessions'
+							},
+							{
+								expression: 'ga:uniquePageviews'
 							}
 						],
 						"dimensionFilterClauses": [

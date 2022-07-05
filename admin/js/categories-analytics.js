@@ -47,26 +47,37 @@
 	     });
 	 		categories.push(category_data);
 	 	});
-		console.log(categories);
 	 	return categories;
 	 }
 
-	 function updateCounterInTable(element_id, count){
-		 console.log(element_id);
-		 console.log(count);
-		 var current_count = parseInt($(element_id).text());
-		 console.log(current_count);
-		 console.log($(element_id).text());
-		 var updated_count = parseInt(current_count) + parseInt(count);
-		 $(element_id).empty().text(updated_count);
+	 function updateCounterInTable(category_slug, user_count, session_count, pageview_count){
+
+		 var users_element_id = "#td-id-total-unique-users-" + category_slug;
+		 var current_user_count = parseInt($(users_element_id).text());
+		 var updated_user_count = parseInt(current_user_count) + parseInt(user_count);
+		 $(users_element_id).empty().text(updated_user_count);
+
+		 var sessions_element_id = "#td-id-total-sessions-" + category_slug;
+		 var current_session_count = parseInt($(sessions_element_id).text());
+		 var updated_session_count = parseInt(current_session_count) + parseInt(session_count);
+		 $(sessions_element_id).empty().text(updated_session_count);
+
+		 var pageviews_element_id = "#td-id-total-unique-pageviews-" + category_slug;
+		 var current_pageview_count = parseInt($(pageviews_element_id).text());
+		 var updated_pageview_count = parseInt(current_pageview_count) + parseInt(pageview_count);
+		 $(pageviews_element_id).empty().text(updated_pageview_count);
+
+
 	 }
 
-	 function updateCounterInTable2(element_id, category_slug, url, count){
+	 function updateCounterInTable2(element_id, category_slug, url, user_count, session_count, pageview_count){
 
 		 var row = '<tr>'+
 		 			'<td>'+ category_slug +'</td>'+
           '<td>'+ url +'</td>'+
-          '<td>'+ count +'</td>'+
+          '<td>'+ user_count +'</td>'+
+					'<td>'+ session_count +'</td>'+
+					'<td>'+ pageview_count+'</td>'+
           '</tr>';
 
 		 $(element_id).append(row);

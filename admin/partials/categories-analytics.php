@@ -31,7 +31,9 @@ echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
         category_slug
       </th>
       <th>url</th>
-      <th>count</th>
+      <th>users</th>
+      <th>sessions</th>
+      <th>pageviews</th>
     </tr>
   </thead>
   <tbody id="tbody-of-table2">
@@ -54,7 +56,6 @@ function waitForGlobalVariables(callback){
   waitFor('GoogleAnalyticsApi', function() {
     waitFor('CategoriesAnalytics', function() {
       callback();
-      console.log("callback!");
     });
   });
 }
@@ -75,8 +76,11 @@ function iterateOverUrls(category){
       googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, urls[index])
       .then((result) => {
         var total_unique_users_count = result.result.reports[0].data.rows[0].metrics[0].values[0];
-        categoriesAnalytics.updateCounterInTable("#td-id-total-unique-users-" + category.slug, total_unique_users_count);
-        categoriesAnalytics.updateCounterInTable2("#tbody-of-table2", category.slug, urls[index], total_unique_users_count)
+        var total_sessions_count = result.result.reports[0].data.rows[0].metrics[0].values[1];
+        var total_unique_pageviews_count = result.result.reports[0].data.rows[0].metrics[0].values[2];
+
+        categoriesAnalytics.updateCounterInTable(category.slug, total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
+        categoriesAnalytics.updateCounterInTable2("#tbody-of-table2", category.slug, urls[index], total_unique_users_count, total_sessions_count, total_unique_pageviews_count)
 
         resolve();
       })

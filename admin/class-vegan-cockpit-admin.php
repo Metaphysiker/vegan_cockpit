@@ -232,6 +232,12 @@ class Vegan_Cockpit_Admin {
 					<th>
 						total unique users
 					</th>
+					<th>
+						total sessions
+					</th>
+					<th>
+						total unique pageviews
+					</th>
 				</tr>
       </thead>
       <tbody>
@@ -255,6 +261,8 @@ class Vegan_Cockpit_Admin {
 					}
 					echo "</td>";
 					echo "<td id=\"td-id-total-unique-users-{$row->slug}\" data-filter=\"total_unique_users\">0</td>";
+					echo "<td id=\"td-id-total-sessions-{$row->slug}\" data-filter=\"total_sessions\">0</td>";
+					echo "<td id=\"td-id-total-unique-pageviews-{$row->slug}\" data-filter=\"total_pageviews\">0</td>";
 			    echo '</tr>';
 			  }
 			?>
