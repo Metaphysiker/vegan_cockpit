@@ -198,10 +198,12 @@ class Vegan_Cockpit_Admin {
 
 	public function categories_analytics_html(){
 		//add_action( 'wp_enqueue_scripts', 'categories_analytics_enqueue_script' );
-		wp_enqueue_script( 'google-analytics-api', plugin_dir_url( __FILE__ ) . 'js/google-analytics-api.js', false );
+		wp_enqueue_script( 'google-analytics-api', plugin_dir_url( __FILE__ ) . 'js/google-analytics-api.js', array( 'jquery' ) );
 
 		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories-analytics.js', false );
 
+		//wp_enqueue_script( 'custom-gallery', plugins_url( '/js/gallery.js' , __FILE__ ), array( 'jquery' ) );
+    //wp_enqueue_script( 'custom-gallery-lightbox', plugins_url( '/js/gallery-lightbox.js' , __FILE__ ), array( 'custom-gallery' ) );
 
 
 		// check user capabilities
