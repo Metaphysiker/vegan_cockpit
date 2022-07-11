@@ -9,7 +9,7 @@
 <body>
 
 
-  <div class="donutChart" style="height: 900px; width: 100%;">
+  <div class="donutChart" style="width: 100%;">
 
   </div>
 
