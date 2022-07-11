@@ -26,113 +26,21 @@ echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
 
 <script>
 
-function waitFor(variable, callback) {
-  var interval = setInterval(function() {
-    if (window[variable]) {
-      clearInterval(interval);
-      callback();
-    }
-  }, 200);
-}
+(function($) {
 
-function waitForGlobalVariables(callback){
-  waitFor('GoogleAnalyticsApi', function() {
-    waitFor('CategoriesAnalytics', function() {
-      callback();
-    });
-  });
-}
-
-function iterateOverUrls(category){
-
-  return new Promise(function(outer_resolve, outer_reject)
-  {
-
-    var dummyDateRange = {
-          startDate: "2022-01-01",
-          endDate: "2022-07-04"
-        };
-
-    var dateRange = {
-      startDate: document.getElementById('start_date').value,
-      endDate: document.getElementById('end_date').value
-    }
-
-
-    var googleAnalyticsApi = new window.GoogleAnalyticsApi();
-    var categoriesAnalytics = new window.CategoriesAnalytics();
-
-    var urls = category.urls.split(",");
-    for (let index = 0, p = Promise.resolve(); index < urls.length; index++)
-    {
-      p = p.then(() => new Promise(function(resolve, reject) {
-
-        googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
-        .then((result) => {
-
-          var total_unique_users_count = result?.result?.reports?.[0].data?.rows?.[0]?.metrics[0]?.values[0];
-
-          if(total_unique_users_count === undefined){
-            console.log("total_unique_users_count is undefined");
-          } else {
-            //var total_unique_users_count = result.result.reports[0].data.rows[0].metrics[0].values[0];
-            var total_sessions_count = result.result.reports[0].data.rows[0].metrics[0].values[1];
-            var total_unique_pageviews_count = result.result.reports[0].data.rows[0].metrics[0].values[2];
-
-            categoriesAnalytics.updateCounterInTable(category.slug, total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
-            categoriesAnalytics.updateCounterInTable2("#tbody-of-table2", category.slug, urls[index], total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
-          }
-
-          resolve();
-          if((index + 1) >= urls.length) {
-            outer_resolve();
-          }
-
-        })
-
-      }))
-    }
-  })
-}
-
-
-function startAnalyticsProcess(){
-  console.log("startAnalyticsProcess");
-  var dummyDateRange = {
-        startDate: "2022-01-01",
-        endDate: "2022-07-04"
-      };
-  var googleAnalyticsApi = new window.GoogleAnalyticsApi();
-  var categoriesAnalytics = new window.CategoriesAnalytics();
-  var categories = categoriesAnalytics.get_categories();
-
-  for (let first_index = 0, p1 = Promise.resolve(); first_index < categories.length; first_index++)
-  {
-    p1 = p1.then(() => new Promise(function(first_resolve, first_reject) {
-
-      iterateOverUrls(categories[first_index]).then((result) => {
-        first_resolve()
-      });
-
-    }))
-  }
-}
-
-  // Replace with your view ID.
-  var VIEW_ID = '235111240';
-
-  // Query the API and print the results to the page.
   function queryReports() {
-    console.log(d3);
-
-    waitForGlobalVariables(startAnalyticsProcess);
 
   }
 
-  function displayResults(response) {
-    var formattedJson = JSON.stringify(response.result, null, 2);
-    document.getElementById('query-output').value = formattedJson;
-  }
+  $( ".select_date_range_button" ).click(function() {
+    const categoriesAnalytics = new window.CategoriesAnalytics();
+    categoriesAnalytics.startAnalyticsProcess();
+  });
+
+})( jQuery );
+
+
+
 </script>
 
 <!-- Load the JavaScript API client and Sign-in library. -->

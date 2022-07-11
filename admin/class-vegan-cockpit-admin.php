@@ -179,11 +179,19 @@ class Vegan_Cockpit_Admin {
 
 	public function add_type_attribute($tag, $handle, $src) {
     // if not your script, do nothing and return original $tag
-    if ( 'd3-charts' !== $handle ) {
+    if ( 'd3_charts' !== $handle ) {
         return $tag;
     }
     // change the script tag by adding type="module" and return it.
     $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
+
+
+	//	<script type="module">
+	//	  import { greet } from "./app.js";
+	//	  window.greetFromModule = greet;
+	//	</script>
+
+
     return $tag;
 }
 
@@ -209,19 +217,19 @@ class Vegan_Cockpit_Admin {
 	public function categories_analytics_html(){
 		//add_action( 'wp_enqueue_scripts', 'categories_analytics_enqueue_script' );
 		wp_enqueue_script( 'google-analytics-api', plugin_dir_url( __FILE__ ) . 'js/google-analytics-api.js', array( 'jquery' ) );
-		wp_enqueue_script( 'd3-charts', plugin_dir_url( __FILE__ ) . 'js/d3-charts.js', array( 'jquery' ) );
+		//wp_enqueue_script( 'd3_charts', plugin_dir_url( __FILE__ ) . 'js/d3-charts.js', array( 'jquery' ) );
 
 		wp_register_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css' );
 		wp_enqueue_style('bootstrap-css');
 
-		wp_register_style( 'jquery-datepicker-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css' );
+		wp_register_style( 'jquery-datepicker-css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css' );
 		wp_enqueue_style('jquery-datepicker-css');
 
 		wp_register_script( 'd3', 'https://d3js.org/d3.v7.min.js', null, null, true );
 		wp_enqueue_script('d3');
 
 		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories-analytics.js', array( 'jquery', 'jquery-ui-datepicker', 'google-analytics-api', 'd3' ) );
-		add_filter('script_loader_tag', array( $this, 'add_type_attribute' ), 10, 3);
+		//add_filter('script_loader_tag', array( $this, 'add_type_attribute' ), 10, 3);
 
 		//wp_enqueue_script( 'custom-gallery', plugins_url( '/js/gallery.js' , __FILE__ ), array( 'jquery' ) );
     //wp_enqueue_script( 'custom-gallery-lightbox', plugins_url( '/js/gallery-lightbox.js' , __FILE__ ), array( 'custom-gallery' ) );

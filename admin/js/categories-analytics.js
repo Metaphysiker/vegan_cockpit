@@ -29,13 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	 function CategoriesAnalyticsObject() {
-			this.get_categories = get_categories,
-			this.updateCounterInTable = updateCounterInTable,
-			this.updateCounterInTable2 = updateCounterInTable2
-	 }
 
-		window.CategoriesAnalytics = CategoriesAnalyticsObject;
 
 	 function get_categories(){
 	 	var categories = [];
@@ -83,6 +77,91 @@
 		 $(element_id).append(row);
 
 	 }
+
+	 function iterateOverUrls(category){
+
+	   return new Promise(function(outer_resolve, outer_reject)
+	   {
+
+	     var dummyDateRange = {
+	           startDate: "2022-01-01",
+	           endDate: "2022-07-04"
+	         };
+
+	     var dateRange = {
+	       startDate: document.getElementById('start_date').value,
+	       endDate: document.getElementById('end_date').value
+	     }
+
+
+	     var googleAnalyticsApi = new window.GoogleAnalyticsApi();
+	     var categoriesAnalytics = new window.CategoriesAnalytics();
+
+	     var urls = category.urls.split(",");
+	     for (let index = 0, p = Promise.resolve(); index < urls.length; index++)
+	     {
+	       p = p.then(() => new Promise(function(resolve, reject) {
+
+	         googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
+	         .then((result) => {
+
+	           var total_unique_users_count = result?.result?.reports?.[0].data?.rows?.[0]?.metrics[0]?.values[0];
+
+	           if(total_unique_users_count === undefined){
+	             console.log("total_unique_users_count is undefined");
+	           } else {
+	             //var total_unique_users_count = result.result.reports[0].data.rows[0].metrics[0].values[0];
+	             var total_sessions_count = result.result.reports[0].data.rows[0].metrics[0].values[1];
+	             var total_unique_pageviews_count = result.result.reports[0].data.rows[0].metrics[0].values[2];
+
+	             categoriesAnalytics.updateCounterInTable(category.slug, total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
+	             categoriesAnalytics.updateCounterInTable2("#tbody-of-table2", category.slug, urls[index], total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
+	           }
+
+	           resolve();
+	           if((index + 1) >= urls.length) {
+	             outer_resolve();
+	           }
+
+	         })
+
+	       }))
+	     }
+	   })
+	 }
+
+	 function startAnalyticsProcess(){
+	   console.log("startAnalyticsProcess");
+	   var dummyDateRange = {
+	         startDate: "2022-01-01",
+	         endDate: "2022-07-04"
+	       };
+	   var googleAnalyticsApi = new window.GoogleAnalyticsApi();
+	   //var categoriesAnalytics = new window.CategoriesAnalytics();
+	   var categories = get_categories();
+
+	   for (let first_index = 0, p1 = Promise.resolve(); first_index < categories.length; first_index++)
+	   {
+	     p1 = p1.then(() => new Promise(function(first_resolve, first_reject) {
+
+	       iterateOverUrls(categories[first_index]).then((result) => {
+	         first_resolve()
+	       });
+
+	     }))
+	   }
+	 }
+
+
+	 function CategoriesAnalyticsObject() {
+			this.get_categories = get_categories,
+			this.updateCounterInTable = updateCounterInTable,
+			this.updateCounterInTable2 = updateCounterInTable2,
+			this.iterateOverUrls = iterateOverUrls,
+			this.startAnalyticsProcess = startAnalyticsProcess
+	 }
+
+		window.CategoriesAnalytics = CategoriesAnalyticsObject;
 
 $( window ).load(function(){
 
