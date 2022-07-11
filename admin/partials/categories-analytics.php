@@ -8,6 +8,11 @@
 </head>
 <body>
 
+
+  <div class="donutChart" style="height: 900px; width: 100%;">
+
+  </div>
+
 <h1>Analytics Reporting API V4</h1>
 
 <div data-google-view-id=
@@ -34,11 +39,18 @@ echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
 
   $( ".select_date_range_button" ).click(function() {
     const categoriesAnalytics = new window.CategoriesAnalytics();
-    categoriesAnalytics.startAnalyticsProcess();
+    categoriesAnalytics.startAnalyticsProcess().then(() => {
+      console.log("donutchart start");
+      const d3Charts = new window.d3Charts();
+      const donutChart = new d3Charts.donutChart(".donutChart", categoriesAnalytics.convertTableDataForDonutChart());
+      console.log(categoriesAnalytics.convertTableDataForDonutChart());
+      donutChart.draw_chart();
+    });
+
   });
 
-})( jQuery );
 
+})( jQuery );
 
 
 </script>

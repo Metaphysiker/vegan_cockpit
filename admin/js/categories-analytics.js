@@ -78,6 +78,30 @@
 
 	 }
 
+	 function getDataFromTable(){
+	 	var data = [];
+
+	 	$('#table_with_categories tbody tr').each( (tr_idx,tr) => {
+	 		var row_data = {};
+	     $(tr).children('td').each( (td_idx, td) => {
+	 				row_data[$(td).data("filter")] = $(td).text();
+	     });
+	 		data.push(row_data);
+	 	});
+
+	 	return data;
+	 }
+
+	 function convertTableDataForDonutChart(){
+		 var data = [];
+		 var data_from_table = getDataFromTable();
+
+		 for (var i = 0; i < data_from_table.length; i++) {
+			 data.push({"name": data_from_table[i].name ,"value": data_from_table[i].total_pageviews})
+		 }
+		 return data;
+	 }
+
 	 function iterateOverUrls(category){
 
 	   return new Promise(function(outer_resolve, outer_reject)
@@ -131,26 +155,29 @@
 	 }
 
 	 function startAnalyticsProcess(){
-	   console.log("startAnalyticsProcess");
-	   var dummyDateRange = {
-	         startDate: "2022-01-01",
-	         endDate: "2022-07-04"
-	       };
+
 	   var googleAnalyticsApi = new window.GoogleAnalyticsApi();
 	   //var categoriesAnalytics = new window.CategoriesAnalytics();
 	   var categories = get_categories();
 
-	   for (let first_index = 0, p1 = Promise.resolve(); first_index < categories.length; first_index++)
-	   {
-	     p1 = p1.then(() => new Promise(function(first_resolve, first_reject) {
+		 return new Promise(function(second_resolve, second_reject) {
 
-	       iterateOverUrls(categories[first_index]).then((result) => {
-	         first_resolve()
-	       });
+		   for (let first_index = 0, p1 = Promise.resolve(); first_index < categories.length; first_index++)
+		   {
+		     p1 = p1.then(() => new Promise(function(first_resolve, first_reject) {
 
-	     }))
-	   }
-	 }
+		       iterateOverUrls(categories[first_index]).then((result) => {
+		         first_resolve()
+		       });
+
+					 if((first_index + 1) == categories.length){
+						 second_resolve()
+					 }
+
+		     }))
+		   }
+	 	})
+ }
 
 
 	 function CategoriesAnalyticsObject() {
@@ -158,7 +185,10 @@
 			this.updateCounterInTable = updateCounterInTable,
 			this.updateCounterInTable2 = updateCounterInTable2,
 			this.iterateOverUrls = iterateOverUrls,
-			this.startAnalyticsProcess = startAnalyticsProcess
+			this.startAnalyticsProcess = startAnalyticsProcess,
+			this.convertTableDataForDonutChart = convertTableDataForDonutChart,
+			this.getDataFromTable = getDataFromTable
+
 	 }
 
 		window.CategoriesAnalytics = CategoriesAnalyticsObject;
