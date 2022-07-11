@@ -123,6 +123,7 @@ function startAnalyticsProcess(){
 
   // Query the API and print the results to the page.
   function queryReports() {
+    console.log(d3);
 
     waitForGlobalVariables(startAnalyticsProcess);
 
