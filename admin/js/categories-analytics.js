@@ -167,12 +167,14 @@
 		     p1 = p1.then(() => new Promise(function(first_resolve, first_reject) {
 
 		       iterateOverUrls(categories[first_index]).then((result) => {
+						 if((first_index + 1) == categories.length){
+							 second_resolve()
+						 }
+						 
 		         first_resolve()
 		       });
 
-					 if((first_index + 1) == categories.length){
-						 second_resolve()
-					 }
+
 
 		     }))
 		   }
