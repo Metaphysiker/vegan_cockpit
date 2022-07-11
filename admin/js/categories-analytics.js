@@ -85,18 +85,17 @@
 	 }
 
 $( window ).load(function(){
-	console.log("categories-analytics loaded");
 
 	$("#start_date").datepicker(
 		{
 			'language' : 'de',
 			'dateFormat' : 'dd-mm-yy',
 			'firstDay': 1,
-			'minDate': new Date(2021, 0, 1),
+			'minDate': new Date(2020, 0, 1),
 		});
 
 		$( "#start_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#start_date" ).datepicker("setDate", new Date(2021, 0, 0));
+		$( "#start_date" ).datepicker("setDate", new Date(2021, 0, 1));
 
 
 		$("#end_date").datepicker(

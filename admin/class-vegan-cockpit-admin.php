@@ -203,7 +203,7 @@ class Vegan_Cockpit_Admin {
 	}
 
 	public function categories_analytics_enqueue_script(){
-		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories_analytics.js', false );
+		wp_enqueue_script( 'categories_analytics', plugin_dir_url( __FILE__ ) . 'js/categories_analytics.js', array( 'jquery' ) );
 	}
 
 	public function categories_analytics_html(){
@@ -311,6 +311,23 @@ class Vegan_Cockpit_Admin {
 			?>
       </tbody>
     </table>
+
+		<table class="table table-bordered table-striped">
+		  <thead>
+		    <tr>
+		      <th>
+		        category_slug
+		      </th>
+		      <th>url</th>
+		      <th>users</th>
+		      <th>sessions</th>
+		      <th>pageviews</th>
+		    </tr>
+		  </thead>
+		  <tbody id="tbody-of-table2">
+
+		  </tbody>
+		</table>
 
 		<p>
 

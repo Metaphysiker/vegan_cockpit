@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Hello Analytics Reporting API V4</h1>
+<h1>Analytics Reporting API V4</h1>
 
 <div data-google-view-id=
 <?php
@@ -23,23 +23,6 @@ echo get_option( 'vegan_cockpit_setting' )["google_view_id"];
 
 <!-- The Sign-in button. This will run `queryReports()` on success. -->
 <p class="g-signin2" data-onsuccess="queryReports"></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>
-        category_slug
-      </th>
-      <th>url</th>
-      <th>users</th>
-      <th>sessions</th>
-      <th>pageviews</th>
-    </tr>
-  </thead>
-  <tbody id="tbody-of-table2">
-
-  </tbody>
-</table>
 
 <script>
 
@@ -69,6 +52,13 @@ function iterateOverUrls(category){
           startDate: "2022-01-01",
           endDate: "2022-07-04"
         };
+
+    var dateRange = {
+      startDate: document.getElementById('start_date').value,
+      endDate: document.getElementById('end_date').value
+    }
+
+
     var googleAnalyticsApi = new window.GoogleAnalyticsApi();
     var categoriesAnalytics = new window.CategoriesAnalytics();
 
@@ -77,7 +67,7 @@ function iterateOverUrls(category){
     {
       p = p.then(() => new Promise(function(resolve, reject) {
 
-        googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dummyDateRange, urls[index])
+        googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
         .then((result) => {
 
           var total_unique_users_count = result?.result?.reports?.[0].data?.rows?.[0]?.metrics[0]?.values[0];
