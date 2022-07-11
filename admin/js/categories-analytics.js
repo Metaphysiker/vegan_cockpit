@@ -85,7 +85,31 @@
 	 }
 
 $( window ).load(function(){
-	//get_categories();
+	console.log("categories-analytics loaded");
+
+	$("#start_date").datepicker(
+		{
+			'language' : 'de',
+			'dateFormat' : 'dd-mm-yy',
+			'firstDay': 1,
+			'minDate': new Date(2021, 0, 1),
+		});
+
+		$( "#start_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		$( "#start_date" ).datepicker("setDate", new Date(2021, 0, 0));
+
+
+		$("#end_date").datepicker(
+		{
+			'language' : 'de',
+			'dateFormat' : 'dd-mm-yy',
+			'firstDay': 1,
+			'maxDate': new Date(new Date().setDate(new Date().getDate()-1))
+		});
+		$( "#end_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		$( "#end_date" ).datepicker("setDate", new Date(new Date().setDate(new Date().getDate()-1)));
+
+
 });
 
 })( jQuery );

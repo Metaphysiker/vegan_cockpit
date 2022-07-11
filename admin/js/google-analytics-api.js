@@ -87,6 +87,7 @@ function getNumbersFromGoogle(view_id, dateRange, relative_url){
 
 $( window ).load(function(){
 	console.log("google-analytics-api loaded");
+
 });
 
 })( jQuery );
