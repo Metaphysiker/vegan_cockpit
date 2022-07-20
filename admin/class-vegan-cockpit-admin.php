@@ -245,8 +245,8 @@ class Vegan_Cockpit_Admin {
 		) );
 
 		?>
-
-		<h2>Datumsbereich</h2>
+		<h1>Vegan Cockpit</h1>
+		<h2>Datumsbereich auswählen</h2>
 		<div class="card card-body my-4">
 			<div class="row">
 				<div class="col-6">
@@ -269,9 +269,13 @@ class Vegan_Cockpit_Admin {
 			include( plugin_dir_path( __FILE__ ) . 'partials/categories-analytics.php');
 		?>
 
-
-
-		<h1>Table with Categories</h1>
+		<h2>Wordpress Categories</h2>
+		<p>
+			This table will be filled with information, after you selected a date range.
+		</p>
+		<p>
+			After the table is filled, a Donut-Chart appears.
+		</p>
 		<table id="table_with_categories" class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -320,6 +324,14 @@ class Vegan_Cockpit_Admin {
       </tbody>
     </table>
 
+		<hr>
+
+		<h2>
+			Log
+		</h2>
+		<p>
+			Here you can see what happens in realtime.
+		</p>
 		<table class="table table-bordered table-striped">
 		  <thead>
 		    <tr>
@@ -337,9 +349,40 @@ class Vegan_Cockpit_Admin {
 		  </tbody>
 		</table>
 
+		<hr>
+		<h2>
+			Single Categories
+		</h2>
 		<p>
-
+			Here are the charts for the single categories.
 		</p>
+
+		<div class="single_categories">
+
+
+		</div>
+
+
+
+
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>
+						category_slug
+					</th>
+					<th>url</th>
+					<th>users</th>
+					<th>sessions</th>
+					<th>pageviews</th>
+				</tr>
+			</thead>
+			<tbody id="">
+
+			</tbody>
+		</table>
+
+
 
 		<?php
 	}

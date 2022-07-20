@@ -13,7 +13,7 @@
 
   </div>
 
-<h1>Analytics Reporting API V4</h1>
+<h2>Analytics Reporting API V4</h2>
 
 <div data-google-view-id=
 <?php

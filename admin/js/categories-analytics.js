@@ -92,9 +92,34 @@
 	 	return data;
 	 }
 
+	 function getDataFromTableWithElementId(element_id){
+		var data = [];
+
+		$('#' + element_id + ' tbody tr').each( (tr_idx,tr) => {
+			var row_data = {};
+			 $(tr).children('td').each( (td_idx, td) => {
+					row_data[$(td).data("filter")] = $(td).text();
+			 });
+			data.push(row_data);
+		});
+
+		return data;
+	 }
+
 	 function convertTableDataForDonutChart(){
 		 var data = [];
 		 var data_from_table = getDataFromTable();
+
+		 for (var i = 0; i < data_from_table.length; i++) {
+			 data.push({"name": data_from_table[i].name ,"value": data_from_table[i].total_pageviews})
+		 }
+		 return data;
+	 }
+
+
+	 function convertTableDataForhorizontalBarChart(element_id){
+		 var data = [];
+		 var data_from_table = getDataFromTableWithElementId(element_id);
 
 		 for (var i = 0; i < data_from_table.length; i++) {
 			 data.push({"name": data_from_table[i].name ,"value": data_from_table[i].total_pageviews})
@@ -170,7 +195,7 @@
 						 if((first_index + 1) == categories.length){
 							 second_resolve()
 						 }
-						 
+
 		         first_resolve()
 		       });
 
