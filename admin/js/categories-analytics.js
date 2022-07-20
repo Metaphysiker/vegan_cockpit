@@ -151,7 +151,7 @@
 	     {
 	       p = p.then(() => new Promise(function(resolve, reject) {
 
-	         googleAnalyticsApi.getNumbersFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
+	         googleAnalyticsApi.getDataFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
 	         .then((result) => {
 
 	           var total_unique_users_count = result?.result?.reports?.[0].data?.rows?.[0]?.metrics[0]?.values[0];

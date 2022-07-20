@@ -195,6 +195,54 @@ class Vegan_Cockpit_Admin {
     return $tag;
 }
 
+	public function categories(){
+
+			add_submenu_page(
+				'vegan-cockpit-options',
+				'Categories',
+				'Categories',
+				'manage_options',
+				'vegan-cockpit-categories',
+				array( $this, 'categories_html' ),
+				'1',
+				'dashicons-book-alt'
+		);
+
+	}
+
+
+	public function categories_html(){
+
+		// check user capabilities
+		if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+		}
+
+		wp_enqueue_script( 'google-analytics-api', plugin_dir_url( __FILE__ ) . 'js/google-analytics-api.js', array( 'jquery' ) );
+		wp_enqueue_script( 'd3_charts', plugin_dir_url( __FILE__ ) . 'js/d3-charts.js', array( 'jquery' ) );
+
+		wp_register_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css' );
+		wp_enqueue_style('bootstrap-css');
+
+		wp_register_style( 'jquery-datepicker-css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css' );
+		wp_enqueue_style('jquery-datepicker-css');
+
+		wp_register_script( 'd3', 'https://d3js.org/d3.v7.min.js', null, null, true );
+		wp_enqueue_script('d3');
+
+		wp_enqueue_script( 'categories', plugin_dir_url( __FILE__ ) . 'js/categories.js', array( 'jquery', 'jquery-ui-datepicker', 'google-analytics-api', 'd3', 'd3_charts' ) );
+
+
+
+
+
+		?>
+			<?php
+				include( plugin_dir_path( __FILE__ ) . 'partials/categories.php');
+			?>
+		<?php
+	}
+
 	public function categories_analytics(){
 
 			add_submenu_page(

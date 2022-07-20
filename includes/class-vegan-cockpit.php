@@ -159,6 +159,8 @@ class Vegan_Cockpit {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'options_page' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'categories_analytics' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'categories' );
+
 
 
 
