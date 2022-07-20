@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-function getNumbersFromGoogle(view_id, dateRange, relative_url){
+function getDataFromGoogle(view_id, dateRange, relative_url){
 
 	return new Promise(function(resolve, reject)
 	{
@@ -79,7 +79,7 @@ function getNumbersFromGoogle(view_id, dateRange, relative_url){
 }
 
 function GoogleAnalyticsApiObject() {
-		this.getNumbersFromGoogle = getNumbersFromGoogle;
+		this.getDataFromGoogle = getDataFromGoogle;
  }
 
 window.GoogleAnalyticsApi = GoogleAnalyticsApiObject;
