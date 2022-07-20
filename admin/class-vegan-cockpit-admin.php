@@ -219,6 +219,7 @@ class Vegan_Cockpit_Admin {
 		}
 
 		wp_enqueue_script( 'google-analytics-api', plugin_dir_url( __FILE__ ) . 'js/google-analytics-api.js', array( 'jquery' ) );
+		wp_enqueue_script( 'general-tools', plugin_dir_url( __FILE__ ) . 'js/general-tools.js', array( 'jquery' ) );
 		wp_enqueue_script( 'd3_charts', plugin_dir_url( __FILE__ ) . 'js/d3-charts.js', array( 'jquery' ) );
 
 		wp_register_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css' );
@@ -230,7 +231,7 @@ class Vegan_Cockpit_Admin {
 		wp_register_script( 'd3', 'https://d3js.org/d3.v7.min.js', null, null, true );
 		wp_enqueue_script('d3');
 
-		wp_enqueue_script( 'categories', plugin_dir_url( __FILE__ ) . 'js/categories.js', array( 'jquery', 'jquery-ui-datepicker', 'google-analytics-api', 'd3', 'd3_charts' ) );
+		wp_enqueue_script( 'categories', plugin_dir_url( __FILE__ ) . 'js/categories.js', array( 'jquery', 'jquery-ui-datepicker', 'google-analytics-api', 'd3', 'd3_charts', 'general-tools' ) );
 
 
 

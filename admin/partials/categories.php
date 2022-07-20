@@ -70,7 +70,7 @@
         <p class="card-text">
           Übersicht
         </p>
-        <table id="table_with_categories" class="table table-bordered table-striped table-condensed table-responsive">
+        <table id="wordpress_data" class="table table-bordered table-striped table-condensed table-responsive">
           <thead>
             <tr>
               <th>name</th>
@@ -210,6 +210,7 @@
 
 (function($) {
 
+
   function queryReports() {
 
   }
@@ -217,7 +218,7 @@
   $( ".select_date_range_button" ).click(function() {
     const categoriesAnalytics = new window.CategoriesAnalytics();
 
-    
+
 
     categoriesAnalytics.startAnalyticsProcess().then(() => {
 
