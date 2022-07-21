@@ -16,6 +16,7 @@
 	 }
 
 	 function sortTable(element_id, column_number) {
+		 return new Promise(function(resolve, reject){
 		  var table, rows, switching, i, x, y, shouldSwitch;
 		  table = document.getElementById(element_id);
 		  switching = true;
@@ -46,8 +47,11 @@
 		      and mark that a switch has been done:*/
 		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
 		      switching = true;
-		    }
+		    } else {
+					resolve();
+				}
 		  }
+		})
 		}
 
 

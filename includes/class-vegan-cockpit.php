@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://www.philosophische-insel.ch/
- * @since      1.0.0
+ * @since      1.0.1
  *
  * @package    Vegan_Cockpit
  * @subpackage Vegan_Cockpit/includes

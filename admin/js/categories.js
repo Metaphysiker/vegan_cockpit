@@ -1,6 +1,18 @@
 (function( $ ) {
 	'use strict';
 
+	function convertTableDataForDonutChart(){
+		var generalTools = new window.GeneralTools();
+
+		var data = [];
+		var data_from_table = generalTools.getDataFromTableWithElementId("wordpress_data");
+
+		for (var i = 0; i < data_from_table.length; i++) {
+			data.push({"name": data_from_table[i].name ,"value": data_from_table[i].total_pageviews})
+		}
+		return data;
+	}
+
 	function updateCounterInTable(category_slug, user_count, session_count, pageview_count){
 
 		var users_element_id = "#td-id-total-unique-users-" + category_slug;
@@ -155,12 +167,16 @@ $( window ).load(function(){
 				console.log("startAnalyticsProcess is finished");
 
 				var generalTools = new window.GeneralTools();
-
+				var d3Charts = new window.d3Charts();
 
 				var categories = generalTools.getDataFromTableWithElementId("wordpress_data");
 				for (let i = 0; i < categories.length; i++) {
 					//console.log(categories[i]["slug"]);
-					generalTools.sortTable("category_table_" + categories[i]["slug"] + "_table", 2);
+					generalTools.sortTable("category_table_" + categories[i]["slug"] + "_table", 2)
+					.then(() => {
+						var donutChart = new d3Charts.donutChart(".donutChart", convertTableDataForDonutChart())
+						donutChart.draw_chart();
+					});
 				}
 
 			});

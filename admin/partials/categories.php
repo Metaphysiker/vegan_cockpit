@@ -127,11 +127,10 @@
         </table>
 </div>
 
-<div class="card">
-  <div class="card-body">
+
     <h5 class="card-title">Categories</h5>
     <p>
-"category_table_" + category.slug
+
     </p>
 
     <?php
@@ -169,18 +168,19 @@
 
 
     ?>
-  </div>
-</div>
 
-    <div class="card">
-      <div class="card-body">
+
+
         <h5 class="card-title">DonutChart - Kategorien</h5>
         <p class="card-text">
           Hier erscheinen nach der Analyse die Graphen.
         </p>
 
-      </div>
-    </div>
+        <div class="donutChart" style="width: 100%;">
+
+        </div>
+
+
 
     <div class="card">
       <div class="card-body">
