@@ -128,8 +128,45 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">Categories</h5>
+    <p>
+"category_table_" + category.slug
+    </p>
+
+    <?php
+
+    $categories = get_categories( array(
+        'orderby' => 'name',
+        'order'   => 'ASC'
+    ) );
+
+    foreach ($categories as $row) {
+      $category_table = <<<EOD
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>
+              category_slug
+            </th>
+            <th>url</th>
+            <th>users</th>
+            <th>sessions</th>
+            <th>pageviews</th>
+          </tr>
+        </thead>
+        <tbody id="category_table_{$row->slug}">
+
+        </tbody>
+      </table>
+      EOD;
+
+      echo $category_table;
+    }
 
 
+
+
+
+    ?>
   </div>
 </div>
 
@@ -215,22 +252,7 @@
 
   }
 
-  $( ".select_date_range_button" ).click(function() {
-    const categoriesAnalytics = new window.CategoriesAnalytics();
 
-
-
-    categoriesAnalytics.startAnalyticsProcess().then(() => {
-
-      console.log("donutchart start");
-      const d3Charts = new window.d3Charts();
-      const donutChart = new d3Charts.donutChart(".donutChart", categoriesAnalytics.convertTableDataForDonutChart());
-      console.log(categoriesAnalytics.convertTableDataForDonutChart());
-      donutChart.draw_chart();
-
-    });
-
-  });
 
 })( jQuery );
 
