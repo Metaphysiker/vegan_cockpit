@@ -66,6 +66,8 @@
 
 						if(total_unique_users_count === undefined){
 							console.log("total_unique_users_count is undefined");
+							logOutputToTableWithId("#category_table_" + category.slug, category.slug, urls[index], 0, 0, 0 );
+							logOutputToTableWithId("#log", category.slug, urls[index], 0, 0, 0 );
 						} else {
 							//var total_unique_users_count = result.result.reports[0].data.rows[0].metrics[0].values[0];
 							var total_sessions_count = result.result.reports[0].data.rows[0].metrics[0].values[1];
@@ -96,21 +98,25 @@
 			var googleAnalyticsApi = new window.GoogleAnalyticsApi();
 
 			var categories = generalTools.getDataFromTableWithElementId("wordpress_data");
-			console.log(categories);
+
+			console.log("before iterateOverUrlsOfCategory");
 
 			//loop over all categories
 			for (let i = 0, p = Promise.resolve(); i < categories.length; i++) {
-					p = p.then(() => {
-						console.log(categories[i]);
-						iterateOverUrlsOfCategory(categories[i])
-						.then(() => {
-							if((i+1) == categories.length){
-								startAnalyticsProcess_resolve();
-							}
-						});
+					p = p.then(() => new Promise(function(iterateOverUrlsOfCategory_resolve, iterateOverUrlsOfCategory_reject) {
 
+												console.log("inside loop");
+												console.log(categories[i]);
+												iterateOverUrlsOfCategory(categories[i])
+												.then((result) => {
+													if((i+1) >= categories.length){
+														startAnalyticsProcess_resolve();
+													}
+													console.log("iterate resolve: " + categories[i])
+													iterateOverUrlsOfCategory_resolve();
+												});
 
-					});
+											}));
 			}
 		})
 
@@ -130,7 +136,7 @@ $( window ).load(function(){
 		});
 
 		$( "#start_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#start_date" ).datepicker("setDate", new Date(2021, 0, 1));
+		$( "#start_date" ).datepicker("setDate", new Date(2022, 0, 1));
 
 
 		$("#end_date").datepicker(
