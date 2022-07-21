@@ -61,7 +61,6 @@
 		 var updated_pageview_count = parseInt(current_pageview_count) + parseInt(pageview_count);
 		 $(pageviews_element_id).empty().text(updated_pageview_count);
 
-
 	 }
 
 	 function updateCounterInTable2(element_id, category_slug, url, user_count, session_count, pageview_count){

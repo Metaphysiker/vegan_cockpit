@@ -104,7 +104,8 @@
               echo "<td data-filter=\"slug\">{$row->slug}</td>";
               echo "<td data-filter=\"term_id\">{$row->term_id}</td>";
               echo "<td data-filter=\"category_count\">{$row->category_count}</td>";
-              echo "<td data-filter=\"urls\">";
+              echo "<td data-filter=\"urls\" style=\"height:100px !important;\">";
+              echo "<div style=\"overflow:scroll; height: 100%;\" >";
               $posts_by_category = get_posts( array ('category' => $row->term_id, 'numberposts' => -1) );
               $numItems = count($posts_by_category);
               $i = 0;
@@ -114,6 +115,7 @@
                     echo ",<br />";
                   }
               }
+              echo "</div>";
               echo "</td>";
               echo "<td id=\"td-id-total-unique-users-{$row->slug}\" data-filter=\"total_unique_users\">0</td>";
               echo "<td id=\"td-id-total-sessions-{$row->slug}\" data-filter=\"total_sessions\">0</td>";
@@ -141,7 +143,7 @@
 
     foreach ($categories as $row) {
       $category_table = <<<EOD
-      <table class="table table-bordered table-striped">
+      <table id="category_table_{$row->slug}_table" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>

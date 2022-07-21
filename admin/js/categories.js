@@ -1,6 +1,24 @@
 (function( $ ) {
 	'use strict';
 
+	function updateCounterInTable(category_slug, user_count, session_count, pageview_count){
+
+		var users_element_id = "#td-id-total-unique-users-" + category_slug;
+		var current_user_count = parseInt($(users_element_id).text());
+		var updated_user_count = parseInt(current_user_count) + parseInt(user_count);
+		$(users_element_id).empty().text(updated_user_count);
+
+		var sessions_element_id = "#td-id-total-sessions-" + category_slug;
+		var current_session_count = parseInt($(sessions_element_id).text());
+		var updated_session_count = parseInt(current_session_count) + parseInt(session_count);
+		$(sessions_element_id).empty().text(updated_session_count);
+
+		var pageviews_element_id = "#td-id-total-unique-pageviews-" + category_slug;
+		var current_pageview_count = parseInt($(pageviews_element_id).text());
+		var updated_pageview_count = parseInt(current_pageview_count) + parseInt(pageview_count);
+		$(pageviews_element_id).empty().text(updated_pageview_count);
+
+	}
 
 	function logOutputToTableWithId(element_id, category_slug, url, user_count, session_count, pageview_count){
 
@@ -53,7 +71,7 @@
 							var total_sessions_count = result.result.reports[0].data.rows[0].metrics[0].values[1];
 							var total_unique_pageviews_count = result.result.reports[0].data.rows[0].metrics[0].values[2];
 
-							//categoriesAnalytics.updateCounterInTable(category.slug, total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
+							updateCounterInTable(category.slug, total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
 							//categoriesAnalytics.updateCounterInTable2("#tbody-of-table2", category.slug, urls[index], total_unique_users_count, total_sessions_count, total_unique_pageviews_count);
 							logOutputToTableWithId("#category_table_" + category.slug, category.slug, urls[index], total_unique_users_count, total_sessions_count, total_unique_pageviews_count );
 							logOutputToTableWithId("#log", category.slug, urls[index], total_unique_users_count, total_sessions_count, total_unique_pageviews_count );
@@ -129,6 +147,15 @@ $( window ).load(function(){
 
 			startAnalyticsProcess().then(() => {
 				console.log("startAnalyticsProcess is finished");
+
+				var generalTools = new window.GeneralTools();
+
+
+				var categories = generalTools.getDataFromTableWithElementId("wordpress_data");
+				for (let i = 0; i < categories.length; i++) {
+					//console.log(categories[i]["slug"]);
+					generalTools.sortTable("category_table_" + categories[i]["slug"] + "_table", 2);
+				}
 
 			});
 
