@@ -10,6 +10,11 @@
 		for (var i = 0; i < data_from_table.length; i++) {
 			data.push({"name": data_from_table[i].name ,"value": data_from_table[i].total_pageviews})
 		}
+
+		data = data.sort((a, b) => {
+		    return b.value - a.value;
+		});
+		console.log(data);
 		return data;
 	}
 
@@ -70,6 +75,9 @@
 			for (let index = 0, p = Promise.resolve(); index < urls.length; index++)
 			{
 				p = p.then(() => new Promise(function(resolve, reject) {
+
+					googleAnalyticsApi.getDataFromGoogleWithUserAgeBracketDimension(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
+					.then((result) => { console.log(result)});
 
 					googleAnalyticsApi.getDataFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
 					.then((result) => {
@@ -168,14 +176,15 @@ $( window ).load(function(){
 
 				var generalTools = new window.GeneralTools();
 				var d3Charts = new window.d3Charts();
+				var donutChart = new d3Charts.donutChart(".donutChart", convertTableDataForDonutChart())
+				donutChart.draw_chart();
 
 				var categories = generalTools.getDataFromTableWithElementId("wordpress_data");
 				for (let i = 0; i < categories.length; i++) {
 					//console.log(categories[i]["slug"]);
 					generalTools.sortTable("category_table_" + categories[i]["slug"] + "_table", 2)
 					.then(() => {
-						var donutChart = new d3Charts.donutChart(".donutChart", convertTableDataForDonutChart())
-						donutChart.draw_chart();
+						console.log("table sorted");
 					});
 				}
 

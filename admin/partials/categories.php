@@ -192,25 +192,6 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Graphen</h5>
-        <p class="card-text">
-          Hier erscheinen nach der Analyse die Graphen.
-        </p>
-
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Graphen</h5>
-        <p class="card-text">
-          Hier erscheinen nach der Analyse die Graphen.
-        </p>
-
-      </div>
-    </div>
 
     <div class="card">
       <div class="card-body">
