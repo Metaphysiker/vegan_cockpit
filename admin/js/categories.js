@@ -76,8 +76,8 @@
 			{
 				p = p.then(() => new Promise(function(resolve, reject) {
 
-					googleAnalyticsApi.getDataFromGoogleWithUserAgeBracketDimension(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
-					.then((result) => { console.log(result)});
+				//	googleAnalyticsApi.getDataFromGoogleWithUserAgeBracketDimension(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
+				//	.then((result) => { console.log(result)});
 
 					googleAnalyticsApi.getDataFromGoogle(document.querySelector('[data-google-view-id]').textContent.trim(), dateRange, urls[index])
 					.then((result) => {

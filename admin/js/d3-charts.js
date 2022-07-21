@@ -79,7 +79,9 @@
 
             // Compute the position of each group on the pie:
             var pie = d3.pie()
-              .sort(null) // Do not sort group by size
+              .sort(function(a, b) {
+								return a.name.localeCompare(b.name);
+							})
               .value(d => d.value)
 
           var data_ready = pie(this.data);
