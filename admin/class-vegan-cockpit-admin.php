@@ -150,7 +150,7 @@ class Vegan_Cockpit_Admin {
 	public function options_page(){
 
 			add_menu_page(
-				'Vegan Cockpit',
+				'Einstellungen',
 				'Vegan Cockpit',
 				'manage_options',
 				'vegan-cockpit-options',

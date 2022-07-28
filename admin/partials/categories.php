@@ -182,19 +182,15 @@
 
 
 
-    <div class="card">
-      <div class="card-body">
+
         <h5 class="card-title">HorizontalBarChart - einzelne Kategorien</h5>
         <p class="card-text">
           Hier erscheinen nach der Analyse die Graphen.
         </p>
 
-      </div>
-    </div>
 
 
-    <div class="card">
-      <div class="card-body">
+
         <h5 class="card-title">Log</h5>
         <p class="card-text">
           Hier sieht man in Echtzeit was passiert.
@@ -216,9 +212,6 @@
 
           </tbody>
         </table>
-
-      </div>
-    </div>
 
     <!-- end of container -->
   </div>
